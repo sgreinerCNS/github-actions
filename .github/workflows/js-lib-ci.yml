@@ -8,6 +8,11 @@ on:
         required: false
         default: false
         description: 'Whether playwright dependencies should be installed before running tests. Defaults to false'
+      cs-script:
+        type: boolean
+        required: false
+        default: false
+        description: 'Whether to run a cs npm script instead of a lint one. Defaults to false'
 
 jobs:
   static-checks:
@@ -15,7 +20,7 @@ jobs:
     strategy:
       matrix:
         node-version: ['24.x']
-        task: ['lint', 'types', 'build']
+        task: ${{ fromJSON(inputs.cs-script && '["cs","types","build"]' || '["lint","types","build"]') }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
