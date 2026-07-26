@@ -27,13 +27,18 @@ on:
         required: false
         default: false
         description: 'Whether playwright dependencies should be installed before running tests. Defaults to false'
+      cs-script:
+        type: boolean
+        required: false
+        default: false
+        description: 'Whether to run a cs npm script instead of a lint one. Defaults to false'
 
 jobs:
   lint:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        command: ['npm run lint', 'npm run types']
+        command: ${{ fromJSON(inputs.cs-script && '["cs","types"]' || '["lint","types"]') }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -42,7 +47,7 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
       - run: ${{ inputs.force-install && 'npm ci --force' || 'npm ci' }}
-      - run: ${{ matrix.command }}
+      - run: node --run ${{ matrix.command }}
 
   unit-tests:
     runs-on: ubuntu-24.04
@@ -57,7 +62,7 @@ jobs:
       - run: ${{ inputs.force-install && 'npm ci --force' || 'npm ci' }}
       - run: npx playwright install chromium
         if: ${{ inputs.install-playwright }}
-      - run: npm run test:ci
+      - run: node --run test:ci
       - name: Publish coverage
         if: ${{ inputs.publish-coverage }}
         uses: codecov/codecov-action@v5

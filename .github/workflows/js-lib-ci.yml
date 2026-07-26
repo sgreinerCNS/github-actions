@@ -42,7 +42,7 @@ jobs:
       - run: npm ci
       - run: npx playwright install chromium
         if: ${{ inputs.install-playwright }}
-      - run: npm run test:ci
+      - run: node --run test:ci
       - uses: codecov/codecov-action@v5
         with:
           files: ./coverage/clover.xml
