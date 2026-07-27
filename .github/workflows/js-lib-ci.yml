@@ -8,11 +8,6 @@ on:
         required: false
         default: false
         description: 'Whether playwright dependencies should be installed before running tests. Defaults to false'
-      cs-script:
-        type: boolean
-        required: false
-        default: true
-        description: '[DEPRECATED] This input is ignored and always true'
 
 jobs:
   static-checks:
