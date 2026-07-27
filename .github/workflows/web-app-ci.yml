@@ -30,15 +30,15 @@ on:
       cs-script:
         type: boolean
         required: false
-        default: false
-        description: 'Whether to run a cs npm script instead of a lint one. Defaults to false'
+        default: true
+        description: '[DEPRECATED] This input is ignored and always true'
 
 jobs:
-  lint:
+  static-checks:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        command: ${{ fromJSON(inputs.cs-script && '["cs","types"]' || '["lint","types"]') }}
+        command: ['cs', 'types']
     steps:
       - name: Checkout code
         uses: actions/checkout@v6

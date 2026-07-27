@@ -11,8 +11,8 @@ on:
       cs-script:
         type: boolean
         required: false
-        default: false
-        description: 'Whether to run a cs npm script instead of a lint one. Defaults to false'
+        default: true
+        description: '[DEPRECATED] This input is ignored and always true'
 
 jobs:
   static-checks:
@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         node-version: ['24.x']
-        task: ${{ fromJSON(inputs.cs-script && '["cs","types","build"]' || '["lint","types","build"]') }}
+        task: ['cs', 'types', 'build']
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
