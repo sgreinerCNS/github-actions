@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        command: ['cs', 'types']
+        command: ['lint', 'format:check', 'types']
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
