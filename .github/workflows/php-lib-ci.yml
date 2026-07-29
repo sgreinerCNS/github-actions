@@ -21,6 +21,8 @@ jobs:
       matrix:
         php-version: ['8.4']
         command: ['cs', 'stan']
+        # Enable this once migration to mago is done
+        # command: ['lint', 'format:check', 'analyze']
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
