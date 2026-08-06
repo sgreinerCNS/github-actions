@@ -78,6 +78,6 @@ jobs:
           key: build-${{ matrix.php-version }}-${{ github.run_id }}
           path: build
       - name: Publish coverage
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           files: ./build/clover.xml

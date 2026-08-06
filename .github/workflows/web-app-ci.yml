@@ -60,6 +60,6 @@ jobs:
       - run: node --run test:ci
       - name: Publish coverage
         if: ${{ inputs.publish-coverage }}
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           files: ./coverage/clover.xml
