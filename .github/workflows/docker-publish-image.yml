@@ -6,6 +6,11 @@ on:
       image-name:
         type: string
         required: true
+      dockerfile:
+        description: 'Dockerfile path relative to the build context'
+        type: string
+        required: false
+        default: 'Dockerfile'
       version-arg-name:
         type: string
         required: false
@@ -81,6 +86,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
+          file: ${{ inputs.dockerfile }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
